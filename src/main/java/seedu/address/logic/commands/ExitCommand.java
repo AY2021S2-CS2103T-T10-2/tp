@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.CalendarDirection;
 import seedu.address.model.Model;
 
 /**
@@ -14,8 +13,7 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(
-                MESSAGE_EXIT_ACKNOWLEDGEMENT, false, CalendarDirection.NONE, true);
+        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
     }
 
 }

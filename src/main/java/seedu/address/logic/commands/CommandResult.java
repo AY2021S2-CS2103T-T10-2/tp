@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
-import seedu.address.commons.CalendarDirection;
-
 /**
  * Represents the result of a command execution.
  */
@@ -13,35 +11,19 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
-    /**
-     * Calendar should be navigated.
-     */
-    private final boolean isCalendarNavigation;
+    /** Help information should be shown to the user. */
+    private final boolean showHelp;
 
-    /**
-     * Direction that calendar should be navigated.
-     */
-    private final CalendarDirection calendarDirection;
-
-    /**
-     * The application should exit.
-     */
-    private final boolean isExit;
+    /** The application should exit. */
+    private final boolean exit;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean isCalendarNavigation, CalendarDirection calendarDirection,
-            boolean isExit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.isCalendarNavigation = isCalendarNavigation;
-
-        boolean isCalendarNavigationNone = calendarDirection == CalendarDirection.NONE;
-        assert !(isCalendarNavigation && isCalendarNavigationNone)
-                : "Command result cannot be calendar navigation and have no calendar direction at the same time";
-
-        this.calendarDirection = calendarDirection;
-        this.isExit = isExit;
+        this.showHelp = showHelp;
+        this.exit = exit;
     }
 
     /**
@@ -49,23 +31,19 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, CalendarDirection.NONE, false);
+        this(feedbackToUser, false, false);
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
 
-    public boolean isCalendarNavigation() {
-        return isCalendarNavigation;
-    }
-
-    public CalendarDirection getCalendarDirection() {
-        return calendarDirection;
+    public boolean isShowHelp() {
+        return showHelp;
     }
 
     public boolean isExit() {
-        return isExit;
+        return exit;
     }
 
     @Override
@@ -81,14 +59,13 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && isCalendarNavigation == otherCommandResult.isCalendarNavigation
-                && calendarDirection == otherCommandResult.calendarDirection
-                && isExit == otherCommandResult.isExit;
+                && showHelp == otherCommandResult.showHelp
+                && exit == otherCommandResult.exit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, isCalendarNavigation, calendarDirection, isExit);
+        return Objects.hash(feedbackToUser, showHelp, exit);
     }
 
 }
